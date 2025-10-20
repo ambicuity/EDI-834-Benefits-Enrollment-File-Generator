@@ -1,0 +1,6 @@
+employee_id,ssn,first_name,last_name,middle_name,dob,gender,address1,address2,city,state,zip,plan_code,coverage_start,coverage_end,relationship
+12345,111223333,John,Doe,Michael,01/15/1985,M,123 Main Street,Apt 4B,New York,NY,10001,MED001,01/01/2024,,Employee
+23456,222334444,Jane,Smith,,03/22/1990,F,456 Oak Avenue,,Los Angeles,CA,90001,MED001,01/01/2024,,Employee
+34567,333445555,Robert,Johnson,Lee,07/10/1978,M,789 Pine Road,Suite 100,Chicago,IL,60601,DENT001,01/01/2024,,Employee
+45678,444556666,Maria,Garcia,,11/05/1982,F,321 Elm Street,,Houston,TX,77001,VISION001,01/01/2024,12/31/2024,Employee
+56789,555667777,David,Williams,James,09/30/1975,M,654 Maple Drive,,Phoenix,AZ,85001,MED002,02/01/2024,,Employee
