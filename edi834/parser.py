@@ -119,14 +119,15 @@ def normalize_record(row: Dict[str, Any], row_num: int) -> Dict[str, Any]:
         normalized['ssn'] = normalized['ssn'].replace('-', '').replace(' ', '')
     
     # Standardize gender codes
-    if normalized.get('gender'):
-        gender = normalized['gender'].upper()
-        if gender in ['M', 'MALE']:
-            normalized['gender'] = 'M'
-        elif gender in ['F', 'FEMALE']:
-            normalized['gender'] = 'F'
-        else:
-            normalized['gender'] = 'U'  # Unknown
+    gender = normalized.get('gender', '').upper() if normalized.get('gender') else ''
+    if gender in ['M', 'MALE']:
+        normalized['gender'] = 'M'
+    elif gender in ['F', 'FEMALE']:
+        normalized['gender'] = 'F'
+    elif gender:
+        normalized['gender'] = 'U'  # Unknown
+    else:
+        normalized['gender'] = 'U'  # Default to Unknown for empty values
     
     # Standardize relationship codes
     if normalized.get('relationship'):
