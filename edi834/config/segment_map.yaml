@@ -1,0 +1,161 @@
+# EDI 834 Segment Mapping Configuration
+# Defines the structure of EDI segments for ANSI X12 834 format
+
+# Interchange Control Header
+ISA:
+  description: "Interchange Control Header"
+  elements:
+    - I01: "00"  # Authorization Information Qualifier
+    - I02: "          "  # Authorization Information (10 spaces)
+    - I03: "00"  # Security Information Qualifier
+    - I04: "          "  # Security Information (10 spaces)
+    - I05: "ZZ"  # Interchange ID Qualifier (Sender)
+    - I06: "{SENDER_ID}"  # Interchange Sender ID (15 chars)
+    - I07: "ZZ"  # Interchange ID Qualifier (Receiver)
+    - I08: "{RECEIVER_ID}"  # Interchange Receiver ID (15 chars)
+    - I09: "{DATE}"  # Interchange Date (YYMMDD)
+    - I10: "{TIME}"  # Interchange Time (HHMM)
+    - I11: "^"  # Repetition Separator
+    - I12: "00501"  # Interchange Control Version Number
+    - I13: "{CONTROL_NUMBER}"  # Interchange Control Number
+    - I14: "0"  # Acknowledgment Requested
+    - I15: "T"  # Usage Indicator (T=Test, P=Production)
+    - I16: ":"  # Component Element Separator
+
+# Functional Group Header
+GS:
+  description: "Functional Group Header"
+  elements:
+    - GS01: "BE"  # Functional Identifier Code (BE = Benefit Enrollment)
+    - GS02: "{SENDER_CODE}"  # Application Sender's Code
+    - GS03: "{RECEIVER_CODE}"  # Application Receiver's Code
+    - GS04: "{DATE}"  # Date (YYYYMMDD)
+    - GS05: "{TIME}"  # Time (HHMM)
+    - GS06: "{GROUP_CONTROL_NUMBER}"  # Group Control Number
+    - GS07: "X"  # Responsible Agency Code
+    - GS08: "005010X220A1"  # Version/Release/Industry ID
+
+# Transaction Set Header
+ST:
+  description: "Transaction Set Header"
+  elements:
+    - ST01: "834"  # Transaction Set Identifier Code
+    - ST02: "{TRANSACTION_SET_CONTROL_NUMBER}"  # Transaction Set Control Number
+    - ST03: "005010X220A1"  # Implementation Convention Reference
+
+# Beginning Segment for Benefit Enrollment and Maintenance
+BGN:
+  description: "Beginning Segment"
+  elements:
+    - BGN01: "00"  # Transaction Set Purpose Code (00 = Original)
+    - BGN02: "{TRANSACTION_SET_REFERENCE_NUMBER}"  # Transaction Set Reference Number
+    - BGN03: "{DATE}"  # Transaction Set Creation Date (YYYYMMDD)
+    - BGN04: "{TIME}"  # Transaction Set Creation Time (HHMMSS)
+    - BGN05: "ET"  # Time Zone Code (ET = Eastern Time)
+    - BGN06: ""  # Reference Identification (optional)
+    - BGN07: ""  # Transaction Type Code (optional)
+    - BGN08: "4"  # Action Code (4 = Change)
+
+# Reference Identification
+REF:
+  description: "Reference Identification"
+  elements:
+    - REF01: "{QUALIFIER}"  # Reference Identification Qualifier
+    - REF02: "{REFERENCE_ID}"  # Reference Identification
+    - REF03: ""  # Description (optional)
+
+# Date/Time Reference
+DTP:
+  description: "Date/Time Reference"
+  elements:
+    - DTP01: "{QUALIFIER}"  # Date/Time Qualifier
+    - DTP02: "D8"  # Date Time Period Format Qualifier (D8 = CCYYMMDD)
+    - DTP03: "{DATE}"  # Date Time Period
+
+# Quantity Information
+QTY:
+  description: "Quantity"
+  elements:
+    - QTY01: "{QUALIFIER}"  # Quantity Qualifier
+    - QTY02: "{QUANTITY}"  # Quantity
+
+# Name
+NM1:
+  description: "Individual or Organizational Name"
+  elements:
+    - NM101: "{ENTITY_IDENTIFIER}"  # Entity Identifier Code
+    - NM102: "1"  # Entity Type Qualifier (1 = Person, 2 = Non-Person)
+    - NM103: "{LAST_NAME}"  # Name Last or Organization Name
+    - NM104: "{FIRST_NAME}"  # Name First
+    - NM105: "{MIDDLE_NAME}"  # Name Middle
+    - NM106: ""  # Name Prefix
+    - NM107: ""  # Name Suffix
+    - NM108: "{ID_QUALIFIER}"  # Identification Code Qualifier
+    - NM109: "{IDENTIFICATION_CODE}"  # Identification Code
+
+# Address
+N3:
+  description: "Address Information"
+  elements:
+    - N301: "{ADDRESS1}"  # Address Line 1
+    - N302: "{ADDRESS2}"  # Address Line 2 (optional)
+
+# Geographic Location
+N4:
+  description: "Geographic Location"
+  elements:
+    - N401: "{CITY}"  # City Name
+    - N402: "{STATE}"  # State or Province Code
+    - N403: "{ZIP}"  # Postal Code
+
+# Demographic Information
+DMG:
+  description: "Demographic Information"
+  elements:
+    - DMG01: "D8"  # Date Time Period Format Qualifier
+    - DMG02: "{DOB}"  # Date of Birth
+    - DMG03: "{GENDER}"  # Gender Code
+
+# Health Coverage
+HD:
+  description: "Health Coverage"
+  elements:
+    - HD01: "{MAINTENANCE_TYPE}"  # Maintenance Type Code
+    - HD02: ""  # Maintenance Reason Code (optional)
+    - HD03: "{INSURANCE_LINE_CODE}"  # Insurance Line Code
+    - HD04: "{PLAN_COVERAGE}"  # Plan Coverage Description
+    - HD05: "{COVERAGE_LEVEL}"  # Coverage Level Code
+
+# Individual or Organization Name
+INS:
+  description: "Insured Benefit"
+  elements:
+    - INS01: "{YES_NO}"  # Yes/No Condition (Y/N)
+    - INS02: "{RELATIONSHIP_CODE}"  # Individual Relationship Code
+    - INS03: "{MAINTENANCE_TYPE}"  # Maintenance Type Code
+    - INS04: "{MAINTENANCE_REASON}"  # Maintenance Reason Code
+    - INS05: "A"  # Benefit Status Code (A = Active)
+    - INS06: ""  # Medicare Plan Code (optional)
+    - INS07: ""  # COBRA Qualifying Event Code (optional)
+    - INS08: "{EMPLOYMENT_STATUS}"  # Employment Status Code
+
+# Transaction Set Trailer
+SE:
+  description: "Transaction Set Trailer"
+  elements:
+    - SE01: "{SEGMENT_COUNT}"  # Number of Included Segments
+    - SE02: "{TRANSACTION_SET_CONTROL_NUMBER}"  # Transaction Set Control Number
+
+# Functional Group Trailer
+GE:
+  description: "Functional Group Trailer"
+  elements:
+    - GE01: "{TRANSACTION_SET_COUNT}"  # Number of Transaction Sets
+    - GE02: "{GROUP_CONTROL_NUMBER}"  # Group Control Number
+
+# Interchange Control Trailer
+IEA:
+  description: "Interchange Control Trailer"
+  elements:
+    - IEA01: "{FUNCTIONAL_GROUP_COUNT}"  # Number of Functional Groups
+    - IEA02: "{CONTROL_NUMBER}"  # Interchange Control Number

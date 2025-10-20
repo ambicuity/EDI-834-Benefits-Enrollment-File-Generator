@@ -1,0 +1,51 @@
+# Validation Rules for EDI 834 Enrollment Data
+
+required_fields:
+  - employee_id
+  - ssn
+  - first_name
+  - last_name
+  - dob
+  - plan_code
+  - coverage_start
+
+# Valid plan codes (can be extended)
+plan_codes:
+  - MED001
+  - MED002
+  - DENT001
+  - DENT002
+  - VISION001
+  - VISION002
+  - HSA001
+  - FSA001
+
+# Regular expression patterns for validation
+patterns:
+  ssn: '^\d{9}$'
+  date: '^\d{8}$'
+  zip: '^\d{5}(-\d{4})?$'
+  state: '^[A-Z]{2}$'
+
+# Field length limits
+max_lengths:
+  first_name: 35
+  last_name: 60
+  middle_name: 25
+  address1: 55
+  address2: 55
+  city: 30
+  employee_id: 20
+  subscriber_id: 20
+
+# Valid values for specific fields
+valid_values:
+  gender:
+    - M
+    - F
+    - U
+  relationship_code:
+    - '01'  # Spouse
+    - '18'  # Self/Employee
+    - '19'  # Child
+    - '53'  # Life Partner
