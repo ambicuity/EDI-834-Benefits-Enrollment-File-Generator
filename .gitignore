@@ -55,6 +55,7 @@ dmypy.json
 # Output files
 output/
 *.edi
+!examples/*.edi
 *.log
 
 # OS Files
