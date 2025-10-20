@@ -292,6 +292,9 @@ def validate_edi_structure(edi_content: str) -> Dict[str, Any]:
         'segment_count': 0,
     }
     
+    # Remove newlines that may have been added by pretty print
+    edi_content = edi_content.replace('\n', '')
+    
     segments = edi_content.split('~')
     segments = [s for s in segments if s.strip()]
     result['segment_count'] = len(segments)

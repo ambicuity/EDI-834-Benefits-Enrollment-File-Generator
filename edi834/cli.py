@@ -262,7 +262,7 @@ def print_success(console, message):
 def print_error(console, message):
     """Print error message."""
     if console:
-        console.print(f"[red]✗[/red] {message}", file=sys.stderr)
+        console.print(f"[red]✗[/red] {message}", style="red")
     else:
         print(f"✗ {message}", file=sys.stderr)
 
